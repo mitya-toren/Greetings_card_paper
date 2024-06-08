@@ -1,0 +1,43 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+categories = ['All People', 'Sorel']
+values = [100, 200]
+errors = [50, 10]  # Standard deviation for the bars, with a huge SD for 'All People'
+
+# Patterns for bars
+patterns = ['/', '*']
+
+# Create the bar plot
+fig, ax = plt.subplots()
+
+# Plotting bars with error bars and adjusted bar width
+bars = ax.bar(categories, values, yerr=errors, capsize=10, color='white', edgecolor='black', width=0.5)
+
+# Adding patterns to bars
+for bar, pattern in zip(bars, patterns):
+    bar.set_hatch(pattern)
+
+# Adding labels and title with increased font size
+ax.set_ylabel('Percentage', fontsize=14)
+ax.set_title('Comparison of Awesomeness', fontsize=16)
+ax.set_ylim(0, 250)
+
+# Adjusting font size for x-axis labels
+ax.set_xticklabels(categories, fontsize=14)
+
+# Adding values on top of bars with increased offset
+for bar in bars:
+    height = bar.get_height()
+    ax.annotate('{}'.format(height),
+                xy=(bar.get_x() + bar.get_width() / 2, height),
+                xytext=(0, 10),  # 10 points vertical offset
+                textcoords="offset points",
+                ha='center', va='bottom')
+
+# Save the plot to a file
+plt.savefig("funny_barplot_bw_new_patterns.png")
+
+# Show the plot
+plt.show()
