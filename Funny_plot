@@ -9,11 +9,14 @@ errors = [50, 10]  # Standard deviation for the bars, with a huge SD for 'All Pe
 # Patterns for bars
 patterns = ['/', '*']
 
-# Create the bar plot
-fig, ax = plt.subplots()
+# Create the bar plot with a narrower and shorter aspect ratio
+fig, ax = plt.subplots(figsize=(6, 4))  # Adjusting the width and height to make it smaller
+
+# Custom positions for bars to reduce space between them
+positions = [0, 0.4]
 
 # Plotting bars with error bars and adjusted bar width
-bars = ax.bar(categories, values, yerr=errors, capsize=10, color='white', edgecolor='black', width=0.5)
+bars = ax.bar(positions, values, yerr=errors, capsize=10, color='white', edgecolor='black', width=0.2)
 
 # Adding patterns to bars
 for bar, pattern in zip(bars, patterns):
@@ -24,7 +27,8 @@ ax.set_ylabel('Percentage', fontsize=14)
 ax.set_title('Comparison of Awesomeness', fontsize=16)
 ax.set_ylim(0, 250)
 
-# Adjusting font size for x-axis labels
+# Setting custom x-axis labels
+ax.set_xticks(positions)
 ax.set_xticklabels(categories, fontsize=14)
 
 # Adding values on top of bars with increased offset
@@ -36,8 +40,9 @@ for bar in bars:
                 textcoords="offset points",
                 ha='center', va='bottom')
 
-# Save the plot to a file
-plt.savefig("funny_barplot_bw_new_patterns.png")
+# Save the plot to files
+plt.savefig("funny_barplot_bw_reduced_space_v3.png")
+plt.savefig("funny_barplot_bw_reduced_space_v3.svg")
 
 # Show the plot
 plt.show()
